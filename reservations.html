@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservations | Capognic Limousine Services</title>
+    <link rel="stylesheet" href="Styles.css">
+</head>
+<body>
+    <nav aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a class="nav-reservation" href="reservations.html" aria-current="page"><span>Reservations</span><small>Book your ride</small></a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <main class="reservation-page">
+        <p class="page-label">Travel, tailored to you</p>
+        <h2>Request a Reservation</h2>
+        <p>Share your trip details below and our team will contact you to confirm availability and pricing.</p>
+
+        <form class="reservation-form" action="#" method="post">
+            <div class="form-field"><label for="full-name">Full name</label><input id="full-name" name="full_name" type="text" autocomplete="name" required></div>
+            <div class="form-field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+            <div class="form-field"><label for="phone">Mobile number</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
+            <div class="form-field">
+                <label for="service">Service type</label>
+                <select id="service" name="service" required>
+                    <option value="">Choose a service</option>
+                    <option>Airport Transfers</option><option>Executive Transportation</option>
+                    <option>Special Event</option><option>Receive a Free Quote</option>
+                </select>
+            </div>
+            <div class="form-field"><label for="pickup-date">Pickup date</label><input id="pickup-date" name="pickup_date" type="date" required></div>
+            <div class="form-field"><label for="pickup-time">Pickup time</label><input id="pickup-time" name="pickup_time" type="time" required></div>
+            <div class="form-field full-width"><label for="pickup-location">Pickup location</label><input id="pickup-location" name="pickup_location" type="text" required></div>
+            <div class="form-field full-width"><label for="destination">Destination</label><input id="destination" name="destination" type="text" required></div>
+            <div class="form-field full-width"><label for="notes">Trip details and Special requests</label><textarea id="notes" name="notes" rows="4"></textarea></div>
+            <div class="full-width"><button class="form-submit" type="submit">Submit Reservation Request</button></div>
+        </form>
+    </main>
+    <!-- Reservation Rules Modal -->
+<div id="rulesModal" class="rules-modal">
+    <div class="rules-modal-content">
+        <h3>Reservation Rules & Important Information</h3>
+
+        <ul>
+            <li>Reservation requests are not guaranteed until confirmed by our team.</li>
+            <li>Please provide accurate pickup and destination information.</li>
+            <li>Additional charges may apply for waiting time, extra stops, or route changes.</li>
+            <li>Airport pickups may require flight information.</li>
+            <li>Cancellations should be made as early as possible.</li>
+            <li>Pricing will be confirmed after review of your request.</li>
+        </ul>
+
+        <label class="rules-checkbox">
+            <input type="checkbox" id="rulesAccepted">
+            I have read and understand the reservation rules.
+        </label>
+
+        <div class="rules-buttons">
+            <button type="button" id="cancelRules">Cancel</button>
+            <button type="button" id="confirmRules">Agree & Submit</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.rules-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    z-index:9999;
+    justify-content:center;
+    align-items:center;
+}
+
+.rules-modal-content{
+    background:#fff;
+    width:90%;
+    max-width:600px;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.rules-modal-content h3{
+    margin-top:0;
+}
+
+.rules-modal-content ul{
+    padding-left:20px;
+    line-height:1.7;
+}
+
+.rules-checkbox{
+    display:block;
+    margin:20px 0;
+    font-weight:600;
+}
+
+.rules-buttons{
+    display:flex;
+    gap:10px;
+    justify-content:flex-end;
+}
+
+.rules-buttons button{
+    padding:12px 20px;
+    border:none;
+    cursor:pointer;
+    border-radius:6px;
+}
+
+#cancelRules{
+    background:#777;
+    color:white;
+}
+
+#confirmRules{
+    background:#000;
+    color:white;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.querySelector(".reservation-form");
+    const modal = document.getElementById("rulesModal");
+    const confirmBtn = document.getElementById("confirmRules");
+    const cancelBtn = document.getElementById("cancelRules");
+    const accepted = document.getElementById("rulesAccepted");
+
+    let approvedSubmission = false;
+
+    form.addEventListener("submit", function(e){
+
+        if(!approvedSubmission){
+            e.preventDefault();
+            modal.style.display = "flex";
+        }
+    });
+
+    cancelBtn.addEventListener("click", function(){
+        modal.style.display = "none";
+    });
+
+    confirmBtn.addEventListener("click", function(){
+
+        if(!accepted.checked){
+            alert("Please acknowledge the reservation rules before continuing.");
+            return;
+        }
+
+        approvedSubmission = true;
+        modal.style.display = "none";
+        form.submit();
+    });
+});
+</script>
+</body>
+</html>
