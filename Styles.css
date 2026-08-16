@@ -473,9 +473,112 @@ nav .nav-reservation {
    09. HOME PAGE
    =================================================================== */
 
+/* -------------------------------------------------------------------
+   09A. VEHICLE SPOTLIGHT
+   ------------------------------------------------------------------- */
+
+.vehicle-spotlight {
+    --vehicle-size: 250px;
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+    overflow: hidden;
+
+    width: min(1120px, 90%);
+    min-height: 230px;
+    margin: 28px auto 0;
+    padding: 30px 210px;
+
+    border: 3px solid var(--primary-gold);
+    border-radius: 18px;
+    background: linear-gradient(115deg, #123d25, #2c5f34 52%, #123d25);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+.vehicle-spotlight__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.vehicle-spotlight__content p {
+    margin: 0 0 6px;
+    color: #f5d769;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.vehicle-spotlight__content h2 {
+    margin: 0 0 16px;
+    color: white;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(28px, 4vw, 46px);
+}
+
+.vehicle-spotlight__content a {
+    display: inline-block;
+    padding: 10px 18px;
+    border: 2px solid var(--primary-gold);
+    border-radius: 999px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.vehicle-spotlight__content a:hover,
+.vehicle-spotlight__content a:focus-visible {
+    background: var(--primary-gold);
+    color: var(--primary-green);
+}
+
+.vehicle-spotlight__vehicle {
+    position: absolute;
+    top: 50%;
+    width: var(--vehicle-size);
+    max-height: 185px;
+    object-fit: contain;
+    opacity: 0.9;
+    filter: drop-shadow(0 8px 8px rgba(0, 0, 0, 0.35));
+    pointer-events: none;
+}
+
+.vehicle-spotlight__vehicle--left {
+    left: calc(var(--vehicle-size) * -0.3);
+    transform: translateY(-50%) scaleX(-1);
+    animation: vehicle-glide-left 4.5s ease-in-out infinite alternate;
+}
+
+.vehicle-spotlight__vehicle--right {
+    right: calc(var(--vehicle-size) * -0.3);
+    transform: translateY(-50%);
+    animation: vehicle-glide-right 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes vehicle-glide-left {
+    from { left: calc(var(--vehicle-size) * -0.3); }
+    to { left: calc(50% - var(--vehicle-size)); }
+}
+
+@keyframes vehicle-glide-right {
+    from { right: calc(var(--vehicle-size) * -0.3); }
+    to { right: calc(50% - var(--vehicle-size)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .vehicle-spotlight__vehicle {
+        animation: none;
+    }
+}
+
 
 /* -------------------------------------------------------------------
-   09A. SERVICE PREVIEW SECTION
+   09B. SERVICE PREVIEW SECTION
    ------------------------------------------------------------------- */
 
 .services-preview {
@@ -1502,6 +1605,26 @@ nav .nav-reservation {
 
     .hero-text p {
         font-size: 18px;
+    }
+
+    .vehicle-spotlight {
+        --vehicle-size: 150px;
+
+        min-height: 205px;
+        width: calc(100% - 30px);
+        padding: 26px 88px;
+    }
+
+    .vehicle-spotlight__vehicle {
+        opacity: 0.5;
+    }
+
+    .vehicle-spotlight__vehicle--left {
+        left: calc(var(--vehicle-size) * -0.3);
+    }
+
+    .vehicle-spotlight__vehicle--right {
+        right: calc(var(--vehicle-size) * -0.3);
     }
 
     /* ---------------------------------------------------------------
