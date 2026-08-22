@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
 fetch("https://capognic-reservation-api.cbelle056.workers.dev/services")
     .then(response => {
         if (!response.ok) {
-            throw new Error(`Could not load services. Status: ${response.status}`);
+            throw new Error("Could not load services");
         }
 
         return response.json();
