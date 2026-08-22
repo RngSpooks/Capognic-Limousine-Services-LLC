@@ -130,19 +130,23 @@ document.addEventListener("DOMContentLoaded", function () {
 fetch("https://capognic-reservation-api.cbelle056.workers.dev/services")
     .then(response => {
         if (!response.ok) {
-            throw new Error("Could not load services");
+            throw new Error(`Could not load services. Status: ${response.status}`);
         }
 
         return response.json();
     })
     .then(data => {
-        serviceSelect.innerHTML = '<option value="">Choose a service</option>';
+        console.log("Services received:", data);
+
+        serviceSelect.innerHTML =
+            '<option value="">Choose a service</option>';
 
         data.objects.forEach(item => {
             const serviceName = item.item_data?.name;
 
             if (serviceName) {
                 const option = document.createElement("option");
+
                 option.value = serviceName;
                 option.textContent = serviceName;
 
