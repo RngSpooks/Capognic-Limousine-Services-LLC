@@ -169,14 +169,9 @@ fetch("https://capognic-reservation-api.cbelle056.workers.dev/services")
     const cancelBtn = document.getElementById("cancelRules");
     const accepted = document.getElementById("rulesAccepted");
 
-    let approvedSubmission = false;
-
-    form.addEventListener("submit", function(e){
-
-        if(!approvedSubmission){
-            e.preventDefault();
-            modal.style.display = "flex";
-        }
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        modal.style.display = "flex";
     });
 
     cancelBtn.addEventListener("click", function(){
@@ -190,7 +185,6 @@ fetch("https://capognic-reservation-api.cbelle056.workers.dev/services")
         return;
     }
 
-    approvedSubmission = true;
     modal.style.display = "none";
 
     const selectedService =
@@ -210,13 +204,19 @@ fetch("https://capognic-reservation-api.cbelle056.workers.dev/services")
             pickup_time: document.getElementById("pickup-time").value,
             pickup_location: document.getElementById("pickup-location").value,
             destination: document.getElementById("destination").value,
-            notes: document.getElementById("trip-notes").value,
+            notes: document.getElementById("notes").value,
 
             serviceVariationId: selectedService.dataset.serviceVariationId,
             serviceVariationVersion: selectedService.dataset.serviceVariationVersion
         })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Could not submit reservation");
+        }
+
+        return response.json();
+    })
     .then(data => {
         console.log("Reservation response:", data);
 
