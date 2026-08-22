@@ -210,7 +210,7 @@ fetch("https://capognic-reservation-api.cbelle056.workers.dev/services")
             pickup_time: document.getElementById("pickup-time").value,
             pickup_location: document.getElementById("pickup-location").value,
             destination: document.getElementById("destination").value,
-            notes: document.getElementById("trip-notes").value,
+            notes: document.getElementById("notes").value,
 
             serviceVariationId: selectedService.dataset.serviceVariationId,
             serviceVariationVersion: selectedService.dataset.serviceVariationVersion
@@ -231,6 +231,7 @@ fetch("https://capognic-reservation-api.cbelle056.workers.dev/services")
         console.error("Reservation submission error:", error);
     });
 
+});
 });
 </script>
 </body>
