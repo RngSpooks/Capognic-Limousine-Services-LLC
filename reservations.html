@@ -185,54 +185,52 @@ fetch("https://capognic-reservation-api.cbelle056.workers.dev/services")
 
     confirmBtn.addEventListener("click", function(){
 
-        if(!accepted.checked){
-            alert("Please acknowledge the reservation rules before continuing.");
-            return;
-        }
+    if(!accepted.checked){
+        alert("Please acknowledge the reservation rules before continuing.");
+        return;
+    }
 
-        approvedSubmission = true;
-        modal.style.display = "none";
+    approvedSubmission = true;
+    modal.style.display = "none";
 
-        const selectedService = 
+    const selectedService =
         serviceSelect.options[serviceSelect.selectedIndex];
 
+    fetch("https://capognic-reservation-api.cbelle056.workers.dev/create-booking", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            full_name: document.getElementById("full-name").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+            service: document.getElementById("service").value,
+            pickup_date: document.getElementById("pickup-date").value,
+            pickup_time: document.getElementById("pickup-time").value,
+            pickup_location: document.getElementById("pickup-location").value,
+            destination: document.getElementById("destination").value,
+            notes: document.getElementById("trip-notes").value,
 
-
-        fetch("https://capognic-reservation-api.cbelle056.workers.dev/create-booking", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        full_name: document.getElementById("full-name").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        service: document.getElementById("service").value,
-        pickup_date: document.getElementById("pickup-date").value,
-        pickup_time: document.getElementById("pickup-time").value,
-        pickup_location: document.getElementById("pickup-location").value,
-        destination: document.getElementById("destination").value,
-        notes: document.getElementById("notes").value
-        serviceVariationId: selectedService.dataset.serviceVariationId,
-        serviceVariationVersion: selectedService.dataset.serviceVariationVersion,
+            serviceVariationId: selectedService.dataset.serviceVariationId,
+            serviceVariationVersion: selectedService.dataset.serviceVariationVersion
+        })
     })
-})
-.then(response => response.json())
-.then(data => {
-    console.log("Reservation response:", data);
+    .then(response => response.json())
+    .then(data => {
+        console.log("Reservation response:", data);
 
-    if (data.success) {
-        alert("Your reservation request has been submitted successfully!");
-        form.reset();
-    } else {
-        alert("There was a problem submitting your reservation.");
-    }
-})
-.catch(error => {
-    console.error("Reservation submission error:", error);
-    alert("Unable to submit your reservation. Please try again.");
-});
+        if(data.success){
+            alert("Your reservation request has been submitted successfully!");
+            form.reset();
+        } else {
+            alert("There was a problem submitting your reservation.");
+        }
+    })
+    .catch(error => {
+        console.error("Reservation submission error:", error);
     });
+
 });
 </script>
 </body>
