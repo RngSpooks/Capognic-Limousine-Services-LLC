@@ -210,28 +210,29 @@ fetch("https://capognic-reservation-api.cbelle056.workers.dev/services")
             serviceVariationVersion: selectedService.dataset.serviceVariationVersion
         })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Could not submit reservation");
-        }
+    .then(async response => {
+    const data = await response.json();
 
-        return response.json();
-    })
-    .then(data => {
-        console.log("Reservation response:", data);
+    console.log("Full reservation response:", data);
 
-        if(data.success){
-            alert("Your reservation request has been submitted successfully!");
-            form.reset();
-        } else {
-            alert("There was a problem submitting your reservation.");
-        }
-    })
-    .catch(error => {
-        console.error("Reservation submission error:", error);
-    });
+    if (!response.ok) {
+        console.error("Full reservation error:", data);
+        throw new Error(data.error || data.message || "Could not submit reservation");
+    }
 
-});
+    return data;
+})
+.then(data => {
+    if (data.success) {
+        alert("Your reservation request has been submitted successfully!");
+        form.reset();
+    } else {
+        console.error("Reservation was not successful:", data);
+        alert("There was a problem submitting your reservation.");
+    }
+})
+.catch(error => {
+    console.error("Reservation submission error:", error);
 });
 </script>
 </body>
