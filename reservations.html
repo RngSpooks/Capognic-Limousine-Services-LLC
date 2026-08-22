@@ -142,7 +142,7 @@ fetch("https://capognic-reservation-api.cbelle056.workers.dev/services")
             '<option value="">Choose a service</option>';
 
         data.objects.forEach(item => {
-            const serviceName = item.item_data?.name;
+            const serviceName = item.name;
 
             if (serviceName) {
                 const option = document.createElement("option");
